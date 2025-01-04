@@ -1,1 +1,1 @@
-# Pig
+The code implements various versions of the dice game "Pig." In this game, players roll dice to accumulate points but risk losing their points for the turn if they roll a 1. The code simulates automated, single-player, two-player, and interactive variations of the game. Below is an explanation of each function:
