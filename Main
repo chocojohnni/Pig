@@ -1,0 +1,244 @@
+import random
+
+def OneAutomatedTurnOfPig():
+    turnTotal = 0
+    while turnTotal < 20:
+        die1 = random.randint(1,6)
+        print("Roll: ", die1)
+        if die1 == 1:
+            turnTotal = 0
+            break
+        turnTotal += die1
+    print("Turn Total: ", turnTotal)
+
+def HoldAtTwenty():
+    number = int(input("How many Hold-At-20 turn simulations?: "))
+    l = []
+    for i in range(number):
+        turnTotal = 0
+        while turnTotal < 20:
+            die1 = random.randint(1,6)
+            if die1 == 1:
+                turnTotal = 0
+                break
+            turnTotal += die1
+        l.append(turnTotal)
+    print("Score  ", "Estimated Probability")
+    print("0      ", l.count(0)/number)
+    print("20     ", l.count(20)/number)
+    print("21     ", l.count(21)/number)
+    print("22     ", l.count(22)/number)
+    print("23     ", l.count(23)/number)
+    print("24     ", l.count(24)/number)
+    print("25     ", l.count(25)/number)
+
+def HoldAtX():
+    num = int(input("When do you want to hold?: "))
+    numb = int(input("How many turn simulations?: "))
+    l2 = []
+    for i in range(numb):
+        turnTotal = 0
+        while turnTotal < 20:
+            die1 = random.randint(1,6)
+            if die1 == 1:
+                turnTotal = 0
+                break
+            turnTotal += 1
+        l2.append(turnTotal)
+    print("Score  ", "Estimated Probability")
+    print("0      ", l2.count(0)/numb)
+    print(num, " ", l2.count(num)/numb)
+    print(num+1, " ", l2.count(num+1)/numb)
+    print(num+2, " ", l2.count(num+2)/numb)
+    print(num+3, " ", l2.count(num+3)/numb)
+    print(num+4, " ", l2.count(num+4)/numb)
+    print(num+5, " ", l2.count(num+5)/numb)
+
+def HoldAtTwentyOrGoalTurn():
+    num = int(input("Score?: "))
+    turnTotal = 0
+    total = num
+    while turnTotal < 20:
+        die1 = random.randint(1,6)
+        print("Roll: ", die1)
+        if die1 == 1:
+            turnTotal = 0
+            new_score = 0
+            break
+        turnTotal += die1
+    else:
+        new_score = total + turnTotal
+    print("Turn Total: ", turnTotal)
+    print("New Score: ", new_score)
+
+def HoldAtTwentyOrGoalGame():
+    total = 0
+    while total < 100:
+        turnTotal = 0
+        while True:
+            die1 = random.randint(1,6)
+            print("Roll: ", die1)
+            if die1 == 1:
+                turnTotal = 0
+                break
+            turnTotal += die1
+            if turnTotal >= 20 or total + turnTotal >= 100:
+                break
+        total += turnTotal
+        print("Turn Total: ", turnTotal)
+        print("New Score: ", total)
+
+def AveragePigTurns():
+    total = 0
+    turns = 0
+    while total < 100:
+        turnTotal = 0
+        while True:
+            die1 = random.randint(1,6)
+            if die1 == 1 or turnTotal >= 20 or total + turnTotal >= 100:
+                break
+            turnTotal += die1
+        total += turnTotal
+        turns += 1
+    return turns
+
+def AveragePigTurns2():
+    num = int(input("Games?: "))
+    totalTurns = 0
+    for i in range(num):
+        totalTurns += AveragePigTurns()
+    averageTurns = totalTurns/num
+    print("Average Turns: ", averageTurns)
+
+def TwoPlayerPig():
+    turnCount = 0
+    playerOneScore = 0
+    playerTwoScore = 0
+    while playerOneScore < 100 and playerTwoScore < 100:
+        die1 = 0
+        playerOneTotal = 0
+        playerTwoTotal = 0
+        print(f"Player 1 score: {playerOneScore}")
+        print(f"Player 2 score: {playerTwoScore}")
+        print("it is player 1's turn.")
+        while die1 != 1 and playerOneTotal < 20:
+            die1 = 0
+            die1 = random.randint(1,6)
+            print(f"Roll: {die1}")
+            if die1 != 1:
+                playerOneTotal += die1
+            else:
+                playerOneTotal = 0
+                break
+        print(f"Turn Total: {playerOneTotal}")
+        playerOneScore += playerOneTotal
+        print(f"New Score: {playerOneScore}")
+        die1 = 0
+        print(f"Player 1 Score: {playerOneScore}")
+        print(f"Player 2 Score: {playerTwoScore}")
+        print("It is player 2's turn.")
+        while die1 != 1 and playerTwoTotal < 20:
+            die1 = 0
+            die1 = random.randint(1,6)
+            print(f"Roll: {die1}")
+            if die1 != 1:
+                playerTwoTotal += die1
+            else:
+                playerTwoTotal = 0
+                break
+        print(f"Turn Total: {playerTwoTotal}")
+        playerTwoScore += playerTwoTotal
+        print(f"New Score: {playerTwoScore}")
+
+def PigGame():
+    userFirstSecond = random.randint(1,2)
+    if userFirstSecond == 1:
+        print("You will be player 1.")
+    elif userFirstSecond == 2:
+        print("You will be player 2.")
+    print("Enter nothing to roll; enter anything to hold.")
+    turnCount = 0
+    playerOneScore = 0
+    playerTwoScore = 0
+    if userFirstSecond==1:
+        while playerOneScore<100 and playerTwoScore<100:
+            rollHoldPlayerOne=""
+            dice=0
+            playerOneTotal=0
+            playerTwoTotal=0
+            print("Player 1 Score: ",playerOneScore)
+            print("Player 2 Score: ",playerTwoScore)
+            print("It is Player 1's Turn.")
+            while dice!=1 and playerOneTotal<20 and rollHoldPlayerOne=="":
+                dice=0
+                dice=random.randint(1,6)
+                print("Rolled: ",dice)
+                if dice!=1:
+                    playerOneTotal+=dice
+                else:
+                    playerOneTotal=0
+                    break
+                print("Turn Total: ",playerOneTotal,end="   ")
+                rollHoldPlayerOne=input("Roll/Hold? ")
+            print("Turn Total: ",playerOneTotal)
+            playerOneScore+=playerOneTotal
+            print("New Score: ",playerOneScore)
+            dice=0
+            print("Player 1 Score: ",playerOneScore)
+            print("Player 2 Score: ",playerTwoScore)
+            print("It is Player 2's Turn.")
+            while dice!=1 and playerTwoTotal<20:
+                dice=0
+                dice=random.randint(1,6)
+                print("Rolled: ",dice)
+                if dice!=1:
+                    playerTwoTotal+=dice
+                else:
+                    playerTwoTotal=0
+            print("Turn Total: ",playerTwoTotal)
+            playerTwoScore+=playerTwoTotal
+            print("New Score: ",playerTwoScore)
+    if userFirstSecond==2:
+        while playerOneScore<100 and playerTwoScore<100:
+            rollHoldPlayerTwo=""
+            dice=0
+            playerOneTotal=0
+            playerTwoTotal=0
+            print("Player 1 Score: ",playerOneScore)
+            print("Player 2 Score: ",playerTwoScore)
+            print("It is Player 1's Turn.")
+            while dice!=1 and playerOneTotal<20:
+                dice=0
+                dice=random.randint(1,6)
+                print("Rolled: ",dice)
+                if dice!=1:
+                    playerOneTotal+=dice
+                else:
+                    playerOneTotal=0
+                    break
+            print("Turn Total: ",playerOneTotal)
+            playerOneScore+=playerOneTotal
+            print("New Score: ",playerOneScore)
+            dice=0
+            print("Player 1 Score: ",playerOneScore)
+            print("Player 2 Score: ",playerTwoScore)
+            print("It is Player 2's Turn.")
+            while dice!=1 and playerTwoTotal<20 and rollHoldPlayerTwo=="":
+                dice=0
+                dice=random.randint(1,6)
+                print("Rolled: ",dice)
+                if dice!=1:
+                    playerTwoTotal+=dice
+                else:
+                    playerTwoTotal=0
+                    break
+                print("Turn Total: ",playerTwoTotal,end="   ")
+                rollHoldPlayerTwo=input("Roll/Hold? ")
+            print("Turn Total: ",playerTwoTotal)
+            playerTwoScore+=playerTwoTotal
+            print("New Score: ",playerTwoScore)
+
+if __name__ == '__main__':
+    print(PigGame())
+
+
